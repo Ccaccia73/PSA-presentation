@@ -209,13 +209,13 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 
 
 \begin{frame}
-	\frametitle{Categorie di Modelli di Ottimizzazione}
+	\frametitle{Classificazione di Modelli di Ottimizzazione}
 	\begin{itemize}
 		\item lineare, non-lineare \cite{vanderbei2014linear}
 		\item continuo, discreto
 		\item vincolato, non vincolato 
 		\item convex optimization \cite{boyd2004convex}
-		\item multi-objective \cite{desideri2010}
+		\item mono-multi obiettivo \cite{desideri2010}
 		\item modelli euristici vs. esatti
 		\item metodi rilassati
 		\item \ldots
@@ -235,6 +235,7 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 			\end{itemize}
 			\item trasformazione di obiettivi in vincoli
 		\end{itemize}
+		O.T. trasforma l'obiettivo di riduzione di massa in vincolo
 	\end{block}
 \end{frame}
 
@@ -242,12 +243,14 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 	\frametitle{Note (2)}
 	
 	\begin{block}{Convex optimization}
-		In un certo senso pi\`{u} semplice. Strumenti molto potenti. Varie implementazioni software (ad es. \url{www.cvxopt.org})
+		In un certo senso pi\`{u} semplice. Strumenti molto potenti. Varie implementazioni software (ad es. \url{www.cvxopt.org})\\
+		Algoritmi di O.T. approssimano la f.o. in quadratica nell'intorno della soluzione attuale. 
 	\end{block}
 
 	\begin{block}{Rilassamento dei vincoli}
 		Possibilit\`{a} di ridurre la complessit\`{a} del pb. modificando opportunamente i vincoli del problema.\\
-		Varie tecniche, in particolare da \textit{binario} \textbf{[0,1]} a \textit{continuo}.
+		Varie tecniche, in particolare da \textit{binario} \textbf{[0,1]} a \textit{continuo}.\\
+		Gli algoritmi di O.T. usano questa tecnica.
 	\end{block}
 \end{frame}
 
@@ -448,7 +451,7 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 
 \begin{frame}
 	\frametitle{O.T. : Caratteristiche}
-	Una volta definita una discretizzazione del dominio (\textit{mesh}) \\ il problema \`{e} intrinsecamente discreto (\textbf{binario}):
+	Una volta definita una discretizzazione del dominio (\textit{mesh}) \\ il problema \`{e} di ottimizzazione discreta (\textbf{binaria}):
 	\begin{itemize}
 		\item un elemento partecipa \textbf{[1]}
 		\item un elemento non partecipa \textbf{[0]}
@@ -514,7 +517,7 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 		\item Largamente usato in codici commerciali
 		\item produce valori intermedi delle variabili di progetto $x_i$
 		\item eccessivi valori di penalizzazione rendono il pb malcondizionato o soggetto a minimi locali
-		\item fase di \textit{postprocessing} per definire la geometria
+		\item fase di \textit{postprocessing} per definire la geometria finale
 		\begin{itemize}
 			\item rispetta i vincoli?
 			\item fattibile?
@@ -529,7 +532,7 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 	\frametitle{Sequential Approximate Optimization}
 	S.A.O: \cite{haftka2012elements}
 	\begin{itemize}
-		\item 	Obiettivo: generare soluzione a predominanza di "pieni-vuoti"
+		\item Obiettivo: generare soluzione a predominanza di "pieni-vuoti"
 		\item Approssimazione lineare locale del problema
 		\item uso di \textit{intervening variables} per per linearizzare il problema
 		\item Soluzione iterativa
