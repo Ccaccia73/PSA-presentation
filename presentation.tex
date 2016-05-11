@@ -308,28 +308,268 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 
 
 
+\begin{frame}
+	\frametitle{Shape Optimization (1)}
+	Esempio:\\
+	forma o contorno descritte in modo parametrico:
+	\begin{figure}
+		\includegraphics[width=0.7\linewidth]{./images/shape_ex.png}
+		\caption{Shape Optimization}
+		\label{fig:shape1}
+	\end{figure}
+	
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Shape Optimization (2)}
+	\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+		
+		\column{.35\textwidth} % Left column and width
+		\textbf{Procedura}
+		\begin{enumerate}
+			\item def. parametri e limiti
+			\item mesh
+			\item risoluzione
+			\item calcolo f.o.
+			\item calcolo prossimo passo
+		\end{enumerate}
+		
+		\column{.6\textwidth} % Right column and width
+		\begin{figure}
+			\includegraphics[width=0.9\linewidth]{./images/shape.png}
+			\caption{shape opt.}
+			\label{fig:shape}
+		\end{figure}
+	\end{columns}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Shape Optimization (3)}
+	Metodi di \textbf{Design Improvement}
+	\begin{itemize}
+		\item Simplex
+		\item Steepest Descent
+		\item Conjugate Gradient
+		\item Response Surface
+		\item Line Search
+		\item Brent
+		\item Stochastic Search
+		\item \ldots
+		\item (DoE?)
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Ottimizzazione Topologica}
+	Richiede il minor numero di informazioni iniziali:
+	\begin{itemize}
+		\item \textit{design space} (volume)
+		\item vincoli
+		\item carichi
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Esempio di O.T.(1)}
+	Definizione del problema:
+	\begin{tikzpicture}
+	\point{a}{0}{0};
+	\point{b}{7}{0};
+	\point{c}{7}{2};
+	\point{d}{0}{2};
+	\beam{2}{a}{b};
+	\beam{2}{b}{c};
+	\beam{2}{c}{d};
+	\beam{2}{d}{a};
+	\support{2}{a}[-90];
+	\support{2}{b}[0];
+	\support{2}{d}[-90];
+	\load{1}{d}[90][1.2][0];
+	\end{tikzpicture}
+	%\caption{O.T. - def. problema}
+	\label{fig:schema_to}
+
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Esempio di O.T. (2)}
+	Soluzione:
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.8\textwidth]{./images/beam_2d_reci_gsf_fine_100.png}
+		%\caption{O.T. - soluzione}
+		\label{fig:sol_to}
+	\end{figure}
+\end{frame}
+
+%------------------------------------------------
+
+%------------------------------------------------
+\section{Ottimizzazione Topologica}
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Ottimizzazione Topologica [O.T.]}
+	Consiste nello \textquotedblleft scavare \textquotedblright la struttura ottimale dal pieno:
+	\begin{itemize}
+		\item Definiti i vincoli
+		\item Massimizzando la rigidezza del sistema (ma non solo)
+		\item Data una percentuale prefissata di volume da mantenere 
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Nota}
+	Nomenclatura (non ufficiale) in particolare per gusci: \\
+	\begin{itemize}
+		\item \textbf{Topology}: solid-void elements
+		\item \textbf{Topometry}:sizing
+		\item \textbf{Topography}: shape
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Topography optimization}
+	\begin{figure}
+		\includegraphics[width=0.9\linewidth]{./images/topography.png}
+		\caption{topography opt.}
+		\label{fig:topography}
+	\end{figure}	
+\end{frame}
+
+\begin{frame}
+	\frametitle{O.T. : Caratteristiche}
+	Una volta definita una discretizzazione del dominio (\textit{mesh}) \\ il problema \`{e} intrinsecamente discreto (\textbf{binario}):
+	\begin{itemize}
+		\item un elemento partecipa \textbf{[1]}
+		\item un elemento non partecipa \textbf{[0]}
+	\end{itemize}
+	alla soluzione finale
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{O.T. : Ricerca della soluzione}
+	\begin{itemize}
+		\item Il problema risulta intrinsecamente combinatorio
+		\item Complessit\`{a} computazionale $\mathcal{O}(2^n)$
+		\item moltissime soluzioni prive di significato
+		\item non trattabile \textquotedblleft as is \textquotedblright per problemi anche semplici
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Definizione del Problema}
+	Minimum compliance:
+	\begin{eqnarray}
+	\underset{x}{\text{min}} & f(\mathbf{x}) = \mathbf{q}^T \mathbf{f} & = \sum_{i=1}^{n}(x_i)^p \mathbf{q}_i^T \mathbf{K}_i \mathbf{q}_i \\
+	\text{subject to} & g(\mathbf{x}) = & \frac{v_e}{v_0} \sum_{i=1}^{n}x_i - \bar{v} \leq 0 \\
+	& \mathbf{K} \mathbf{q} = \mathbf{f} &  \\
+	& 0 < \check{x_i} \leq x_i \leq 1  & i=1,\ldots, n
+	\end{eqnarray}
+			
+	
+\end{frame}
+
+%------------------------------------------------
+\section{OT: algoritmi}
+%------------------------------------------------
+
+
+\begin{frame}
+	\frametitle{SIMP-like methods}
+	\textbf{SIMP} Solid Isotropic Material with Penalization
+	\begin{columns}[c] % The "c" option specifies centered vertical alignment while the "t" option is used for top vertical alignment
+		
+		\column{.35\textwidth} % Left column and width
+		\begin{enumerate}
+			\item homogeneization
+			\item relaxed
+			\item penalized
+			\item continuus
+		\end{enumerate}
+		
+		\column{.6\textwidth} % Right column and width
+		\begin{figure}
+			\includegraphics[width=0.7\linewidth]{./images/hom.png}
+		\end{figure}
+	\end{columns}		
+\end{frame}
 
 
 
 
+\begin{frame}
+	\frametitle{SIMP}
+	\begin{itemize}
+		\item Largamente usato in codici commerciali
+		\item produce valori intermedi delle variabili di progetto $x_i$
+		\item eccessivi valori di penalizzazione rendono il pb malcondizionato o soggetto a minimi locali
+		\item fase di \textit{postprocessing} per definire la geometria
+		\begin{itemize}
+			\item rispetta i vincoli?
+			\item fattibile?
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+
+%------------------------------------------------
+
+\begin{frame}
+	\frametitle{Sequential Approximate Optimization}
+	S.A.O: \cite{haftka2012elements}
+	\begin{itemize}
+		\item 	Obiettivo: generare soluzione a predominanza di "pieni-vuoti"
+		\item Approssimazione lineare locale del problema
+		\item uso di \textit{intervening variables} per per linearizzare il problema
+		\item Soluzione iterativa
+	\end{itemize}
+	
+	\begin{eqnarray}
+	\check{x_i} & \leftarrow & max(x_i - \delta, \rho_{min}) \\
+	\hat{x_i} & \leftarrow & min(x_i + \delta, 1)
+	\end{eqnarray}
+	
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Altri algoritmi}
+	\begin{enumerate}
+		\item \textbf{Optimality Criterion} (O.C.): \cite{bendsoe1989optimal}
+		\begin{itemize}
+			\item Espressione delle condizioni di KKT sulla Lagrangiana del problema
+			\item Equivalente a S.A.O. sotto determinate ipotesi 
+		\end{itemize}
+		\item \textbf{Gray Scale Suppression} (G.S.S.): \cite{groenwold2009simple}
+	\end{enumerate}
+\end{frame}
 
 
 
-
-
-
-
-
-
-
-
-
-
+%------------------------------------------------
+\section{OT: esempi}
 %------------------------------------------------
 
 
 
 
+
+
+
+
+\begin{frame}
+	\frametitle{Theorem}
+	\begin{theorem}[Mass--energy equivalence]
+		$E = mc^2$
+	\end{theorem}
+\end{frame}
 
 
 
@@ -350,21 +590,6 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 	\end{table}
 \end{frame}
 
-%------------------------------------------------
-
-
-
-\begin{frame}
-	\frametitle{Theorem}
-	\begin{theorem}[Mass--energy equivalence]
-		$E = mc^2$
-	\end{theorem}
-\end{frame}
-
-
-%------------------------------------------------
-\section{Ottimizzazione Topologica [OT]}
-%------------------------------------------------
 
 
 %------------------------------------------------
@@ -385,25 +610,8 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 
 
 
-%------------------------------------------------
-\section{OT: algoritmi}
-%------------------------------------------------
 
 
-%------------------------------------------------
-
-\begin{frame}
-	\frametitle{Figure}
-	Uncomment the code on this slide to include your own image from the same directory as the template .TeX file.
-	%\begin{figure}
-	%\includegraphics[width=0.8\linewidth]{test}
-	%\end{figure}
-\end{frame}
-
-
-%------------------------------------------------
-\section{OT: esempi}
-%------------------------------------------------
 
 
 %------------------------------------------------
@@ -471,7 +679,7 @@ This statement requires citation \cite{p1}.
 
 %------------------------------------------------
 
-\begin{frame}
+\begin{frame}[allowframebreaks]
 \frametitle{References}
 \footnotesize{
 			\bibliographystyle{plain}
