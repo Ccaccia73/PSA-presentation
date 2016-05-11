@@ -108,7 +108,8 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 
 \begin{frame}
 \frametitle{Outline} % Table of contents slide, comment this block out to remove it
-\tableofcontents[hideallsubsections]
+%\tableofcontents[hideallsubsections]
+\tableofcontents
  % Throughout your presentation, if you choose to use \section{} and \subsection{} commands, these will automatically be printed on this slide as an overview of your presentation
 \end{frame}
 
@@ -120,13 +121,26 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 \section{Descrizione del Problema} % Sections can be created in order to organize your presentation into discrete blocks, all sections and subsections are automatically printed in the table of contents as an overview of the talk
 %------------------------------------------------
 
-\subsection{Modello Stutturale}
+% \subsection{Modello Stutturale}
  % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
 
 \begin{frame}
+	\frametitle{Elementi dell'ottimizzazione strutturale:}
+	\begin{itemize}
+		\item modello strutturale
+		\item modello di ottimizzazione
+		\item algoritmo di ottimizzazione
+	\end{itemize}
+\end{frame}
+
+
+\begin{frame}
 	\frametitle{Schema}
+	Schema di ottimizzazione:
 	\begin{figure}
 		\includegraphics[width=0.8\linewidth]{./images/schema.png}
+		\caption{Optimization schema \cite{eschenauer1997applied}}
+		\label{fig:schema}
 	\end{figure}
 \end{frame}
 
