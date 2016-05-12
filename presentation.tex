@@ -83,9 +83,9 @@
 \usepackage{booktabs} % Allows the use of \toprule, \midrule and \bottomrule in tables
 
 
-%\usepackage{movie15}
-\usepackage{multimedia} 
-
+\usepackage{movie15}
+%\usepackage{multimedia} 
+%\usepackage{media9}
 
 %----------------------------------------------------------------------------------------
 %	TITLE PAGE
@@ -96,7 +96,7 @@
 	Ottimizzazione Topologica } % The short title appears at the bottom of every slide, the full title is only on the title page
 
 \author{Claudio Caccia} % Your name
-\institute[Polimi] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
+\institute[PSA] % Your institution as it will appear on the bottom of every slide, may be shorthand to save space
 {
 Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 \medskip
@@ -129,11 +129,12 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
  % A subsection can be created just before a set of slides with a common theme to further break down your presentation into chunks
 
 \begin{frame}
-	\frametitle{Elementi dell'ottimizzazione strutturale:}
+	\frametitle{Componenti di un pb. di ottimizzazione strutturale:}
+	Un pb. di ottimizzazione strutturale si compone di: 
 	\begin{itemize}
 		\item modello strutturale
-		\item modello di ottimizzazione
 		\item algoritmo di ottimizzazione
+		\item modello di ottimizzazione
 	\end{itemize}
 \end{frame}
 
@@ -144,17 +145,17 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 		\item Modello strutturale:
 			\begin{itemize}
 				\item struttura reale $\Rightarrow$ modello
-				\item funzione obiettivo e vincoli descritti come variabili del modello $\mathbf{x}$
+				\item funzione obiettivo e vincoli devono essere descritti come variabili del modello
 			\end{itemize}
 		\item Algoritmo di ottimizzazione:
 			\begin{itemize}
-				\item porta da soluzione iniziale $\mathbf{x_0}$ a $\mathbf{x_f}$
+				\item porta da soluzione iniziale di progetto $\mathbf{x_0}$ all'ottimo $\mathbf{x^*}$
 			\end{itemize}
 		\item Modello di ottimizzazione:
 			\begin{itemize}
 				\item ponte tra struttura e algoritmo
 				\item valuta f.o. e vincoli
-				\item traduce le variabili strutturali in \textit{design variables}
+				\item traduce le \textit{design variables} in variabili del pb.  strutturale  
 			\end{itemize}
 	\end{itemize}
 	
@@ -163,7 +164,7 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 
 \begin{frame}
 	\frametitle{Schema}
-	Schema di ottimizzazione:
+	Processo di ottimizzazione:
 	\begin{figure}
 		\includegraphics[width=0.8\linewidth]{./images/schema.png}
 		\caption{Optimization schema \cite{eschenauer1997applied}}
@@ -177,22 +178,10 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 %------------------------------------------------
 
 
-
-
-\begin{frame}
-\frametitle{Formulazione}
- Forma generale \cite{vanderplaats1984numerical}:
-	\begin{eqnarray}
-	\underset{x}{\text{min}} & f(\mathbf{x}) & \mathbf{x} \in \mathbb{R}^n \\
-	\text{subject to} & g_j(\mathbf{x}) \leq 0 & j=1,\ldots, m \\
-	& h_k(\mathbf{x}) = 0 & k=1,\ldots, r \\
-	&  \check{x_i} \leq x_i \leq \hat{x_i}  & i=1,\ldots, n
-	\end{eqnarray}
-\end{frame}
-
-
 \begin{frame}
 	\frametitle{Definizione dei termini}
+	Elementi per la formulazione matematica di un pb. di ottimizzazione:
+	\\
 	\begin{enumerate}
 		\item Funzione obiettivo
 		\item \textit{inequality constraints}: definiscono le regioni di validit\`{a} della f.o.
@@ -202,6 +191,21 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 \end{frame}
 
 
+\begin{frame}
+\frametitle{Formulazione generale}
+ Forma generale di un pb. di ottimizzazione: \cite{vanderplaats1984numerical}:
+	\begin{eqnarray}
+	\underset{x}{\text{min}} & f(\mathbf{x}) & \mathbf{x} \in \mathbb{R}^n \\
+	\text{subject to} & g_j(\mathbf{x}) \leq 0 & j=1,\ldots, m \\
+	& h_k(\mathbf{x}) = 0 & k=1,\ldots, r \\
+	&  \check{x_i} \leq x_i \leq \hat{x_i}  & i=1,\ldots, n
+	\end{eqnarray}
+\end{frame}
+
+
+
+
+
 
 %------------------------------------------------
 \section{Categorie di modelli di Ottimizzazione}
@@ -209,15 +213,17 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 
 
 \begin{frame}
-	\frametitle{Classificazione di Modelli di Ottimizzazione}
+	\frametitle{Modelli di Ottimizzazione}
+	Numerose categorie e classificazioni dei pb. di ottimizzazione:
+	\\
 	\begin{itemize}
-		\item lineare, non-lineare \cite{vanderbei2014linear}
-		\item continuo, discreto
-		\item vincolato, non vincolato 
-		\item convex optimization \cite{boyd2004convex}
-		\item mono-multi obiettivo \cite{desideri2010}
-		\item modelli euristici vs. esatti
-		\item metodi rilassati
+		\item Formulazione lineare (PL) vs. non-lineare \cite{vanderbei2014linear}
+		\item Formulazione mono vs. multi obiettivo \cite{desideri2010}
+		\item Dominio continuo vs. discreto
+		\item Dominio convesso o no \cite{boyd2004convex}
+		\item Ottimo vincolato o non vincolato 
+		\item Modelli euristici vs. esatti
+		\item tecniche di rilassamento
 		\item \ldots
 	\end{itemize}
 \end{frame}
@@ -231,11 +237,11 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 			\item Frontiera di Pareto
 			\item definizione a priori delle preferenze
 			\begin{itemize}
-				\item pb. di omogeneizzazione (costo?)
+				\item pb. di omogeneizzazione (ad es. costo?)
 			\end{itemize}
 			\item trasformazione di obiettivi in vincoli
 		\end{itemize}
-		O.T. trasforma l'obiettivo di riduzione di massa in vincolo
+		O.T. trasforma l'obiettivo di riduzione di massa in un vincolo
 	\end{block}
 \end{frame}
 
@@ -243,7 +249,7 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 	\frametitle{Note (2)}
 	
 	\begin{block}{Convex optimization}
-		In un certo senso pi\`{u} semplice. Strumenti molto potenti. Varie implementazioni software (ad es. \url{www.cvxopt.org})\\
+		In un certo senso pi\`{u} semplice. Molte tecniche e varie implementazioni software (ad es. \url{www.cvxopt.org})\\
 		Algoritmi di O.T. approssimano la f.o. in quadratica nell'intorno della soluzione attuale. 
 	\end{block}
 
@@ -263,6 +269,7 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 \begin{frame}
 	\frametitle{Ottimizzazione Strutturale}
 	Classificazione dei modelli di O.S.\cite{christensen2008introduction}
+	\\
 	\begin{itemize}
 		\item \textit{Sizing Optimization}
 		\item \textit{Shape Optimization}
@@ -289,6 +296,7 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 		\begin{figure}
 			\centering
 			\begin{tikzpicture}
+				\scaling{.7};
 				\point{a}{0}{0};
 				\point{b}{4}{0};
 				\point{c}{4}{4};
@@ -301,10 +309,10 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 				\load{1}{b}[-210][1.2][-1.3];
 				\notation{3}{a}{b}[$A_1$, E, $L_1$][.3][above right];
 				\notation{3}{b}{c}[$A_2$, E, $L_2$][.5][right=2mm];
-				\notation{4.5}{a}{b}[F][1][below right=2.2mm];
-				\draw (4.5,0) arc (0:-30:0.5);
-				\draw[line width=0.5pt] (4.1,0) -- (4.8,0);
-				\node[] at (4.8,-0.2) {$\alpha$};
+				\notation{3.15}{a}{b}[F][1][below right=2.2mm];
+				\draw (3.15,0) arc (0:-30:0.5);
+				\draw[line width=0.5pt] (3.0,0) -- (3.8,0);
+				\node[] at (3.5,-0.2) {$\alpha$};
 				\notation{5}{a}{b}[F][1][below right=4mm];;
 			\end{tikzpicture}
 			\caption[]{minimo peso con vincolo su sforzi}
@@ -354,9 +362,9 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 
 \begin{frame}
 	\frametitle{Shape Optimization (3)}
-	Metodi di \textbf{Design Improvement}
+	Metodi di \textbf{Design Improvement} per la ricerca della forma ottimale:
 	\begin{itemize}
-		\item Simplex
+		%\item Simplex
 		\item Steepest Descent
 		\item Conjugate Gradient
 		\item Response Surface
@@ -373,9 +381,9 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 	\frametitle{Ottimizzazione Topologica}
 	Richiede il minor numero di informazioni iniziali:
 	\begin{itemize}
-		\item \textit{design space} (volume)
-		\item vincoli
-		\item carichi
+		\item \textit{design space} (volume occupato)
+		\item vincoli della struttura
+		\item carichi da applicare
 	\end{itemize}
 \end{frame}
 
@@ -421,11 +429,11 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 
 \begin{frame}
 	\frametitle{Ottimizzazione Topologica [O.T.]}
-	Consiste nello \textquotedblleft scavare \textquotedblright la struttura ottimale dal pieno:
+	Consiste nello \textquotedblleft scavare\textquotedblright la struttura ottimale dal pieno:
 	\begin{itemize}
 		\item Definiti i vincoli
-		\item Massimizzando la rigidezza del sistema (ma non solo)
-		\item Data una percentuale prefissata di volume da mantenere 
+		\item Massimizzando la rigidezza del sistema \\ (nel caso strutturale)
+		\item Data una percentuale prefissata di volume da mantenere \\ (vincolo sulla massa)
 	\end{itemize}
 \end{frame}
 
@@ -435,8 +443,8 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 	Nomenclatura (non ufficiale) in particolare per gusci: \\
 	\begin{itemize}
 		\item \textbf{Topology}: solid-void elements
-		\item \textbf{Topometry}:sizing
-		\item \textbf{Topography}: shape
+		\item \textbf{Topometry}: sizing (ottimizzazione degli spessori)
+		\item \textbf{Topography}: shape (posizionamento dei nodi)
 	\end{itemize}
 \end{frame}
 
@@ -453,10 +461,10 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 	\frametitle{O.T. : Caratteristiche}
 	Una volta definita una discretizzazione del dominio (\textit{mesh}) \\ il problema \`{e} di ottimizzazione discreta (\textbf{binaria}):
 	\begin{itemize}
-		\item un elemento partecipa \textbf{[1]}
-		\item un elemento non partecipa \textbf{[0]}
+		\item un elemento partecipa alla soluzione $[\rho=1]$
+		\item un elemento non partecipa alla soluzione $[\rho=0]$
 	\end{itemize}
-	alla soluzione finale
+	La qualit\`{a} della soluzione dipende dalla mesh
 \end{frame}
 
 
@@ -466,20 +474,21 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 		\item Il problema risulta intrinsecamente combinatorio
 		\item Complessit\`{a} computazionale $\mathcal{O}(2^n)$
 		\item moltissime soluzioni prive di significato
-		\item non trattabile \textquotedblleft as is \textquotedblright per problemi anche semplici
+		\item non trattabile \textquotedblleft as is\textquotedblright per problemi anche semplici
 	\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Definizione del Problema}
-	Minimum compliance:
+	Il pb. di O.T. viene formalizzato in termini di \textit{minimum compliance}:
 	\begin{eqnarray}
 	\underset{x}{\text{min}} & f(\mathbf{x}) = \mathbf{q}^T \mathbf{f} & = \sum_{i=1}^{n}(x_i)^p \mathbf{q}_i^T \mathbf{K}_i \mathbf{q}_i \\
 	\text{subject to} & g(\mathbf{x}) = & \frac{v_e}{v_0} \sum_{i=1}^{n}x_i - \bar{v} \leq 0 \\
 	& \mathbf{K} \mathbf{q} = \mathbf{f} &  \\
 	& 0 < \check{x_i} \leq x_i \leq 1  & i=1,\ldots, n
 	\end{eqnarray}
-			
+	
+	Le variabili di progetto sono le densit\`{a} dei singoli elementi
 	
 \end{frame}
 
@@ -496,9 +505,9 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 		\column{.35\textwidth} % Left column and width
 		\begin{enumerate}
 			\item homogeneization
-			\item relaxed
-			\item penalized
-			\item continuus
+			\item pb. rilassato
+			\item pb. continuo
+			\item densit\`{a} penalizzata
 		\end{enumerate}
 		
 		\column{.6\textwidth} % Right column and width
@@ -514,7 +523,7 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 \begin{frame}
 	\frametitle{SIMP}
 	\begin{itemize}
-		\item Largamente usato in codici commerciali
+		\item Largamente usato in implementazioni sw commerciali
 		\item produce valori intermedi delle variabili di progetto $x_i$
 		\item eccessivi valori di penalizzazione rendono il pb malcondizionato o soggetto a minimi locali
 		\item fase di \textit{postprocessing} per definire la geometria finale
@@ -533,15 +542,15 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 	S.A.O: \cite{haftka2012elements}
 	\begin{itemize}
 		\item Obiettivo: generare soluzione a predominanza di "pieni-vuoti"
-		\item Approssimazione lineare locale del problema
-		\item uso di \textit{intervening variables} per per linearizzare il problema
+		\item Approssimazione lineare locale del problema (\textit{trust region})
 		\item Soluzione iterativa
+			\begin{eqnarray}
+			\check{x}^{k+1}_i & \leftarrow & max(x^{k}_i - \delta, \rho_{min}) \\
+			\hat{x}^{k+1}_i & \leftarrow & min(x^{k}_i + \delta, 1)
+			\end{eqnarray}
+		\item uso di \textit{intervening variables} per per linearizzare il problema \\ (reciproco o esponenziale)
 	\end{itemize}
 	
-	\begin{eqnarray}
-	\check{x_i} & \leftarrow & max(x_i - \delta, \rho_{min}) \\
-	\hat{x_i} & \leftarrow & min(x_i + \delta, 1)
-	\end{eqnarray}
 	
 \end{frame}
 
@@ -552,12 +561,29 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 		\item \textbf{Optimality Criterion} (O.C.): \cite{bendsoe1989optimal}
 		\begin{itemize}
 			\item Espressione delle condizioni di KKT sulla Lagrangiana del problema
-			\item Equivalente a S.A.O. sotto determinate ipotesi 
+			\item Utilizza un \textit{damping factor} per evitare oscillazioni della soluzione
 		\end{itemize}
 		\item \textbf{Gray Scale Suppression} (G.S.S.): \cite{groenwold2009simple}
 	\end{enumerate}
+
+	Equivalenti a S.A.O. sotto determinate ipotesi nella scelta di coefficienti e \textit{intevening variables} 
+
+
 \end{frame}
 
+\begin{frame}
+	\frametitle{T.O. in Python}
+	Unico (?) codice sw che implementa gli algoritmi sopra descritti:\\
+	\url{https://github.com/williamhunter/topy}
+	
+	\begin{itemize}
+		\item elementi regolari (quadrati/cubi)
+		\item domini regolari (rettangoli/parallelepipedi)
+		\item modello definito da un input file
+		\item \textit{tuning} dei parametri per convergenza ottimale
+	\end{itemize}
+	
+\end{frame}
 
 
 %------------------------------------------------
@@ -567,8 +593,8 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 \begin{frame}
 	\frametitle{2D example}
 	\centering
-	%\includemovie[poster, autoplay,text={Loading \ldots}]{0.8\textwidth}{0.3\textwidth}{./images/2d.mp4}
-	\movie[height=0.6\textwidth,width=0.8\textwidth,poster]{}{./images/2d.mp4}
+	\movie{\includegraphics[width=0.8\textwidth]{./images/beam_2d_reci_gsf_fine_001.png}}{./images/2d.mpg}
+	%[height=0.6\textwidth,width=0.8\textwidth,poster]{}{./images/2d.mp4}
 \end{frame}
 
 
@@ -627,7 +653,7 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 	\centering
 	%\includemovie[poster, autoplay,text={Loading \ldots}]{0.8\textwidth}{0.3\textwidth}{./images/2d.mp4}
 	%\movie[height=0.6\textwidth,width=0.8\textwidth,poster]{}{./images/cant_3d.avi}
-	\movie{\includegraphics[width=0.8\textwidth]{./images/torque.png}}{./images/torque.avi}
+	\movie{\includegraphics[width=0.8\textwidth]{./images/torque_h.png}}{./images/torque_h.avi}
 \end{frame}
 
 
@@ -656,6 +682,8 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 		\begin{itemize}
 			\item Esempio: \url{https://www.youtube.com/watch?v=IxqV2bFM6bU}
 		\end{itemize}
+		\item midas NFX: \url{http://www.midasnfx.com/}
+		\item \ldots
 	\end{itemize} 
 \end{frame}
 
@@ -666,8 +694,8 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 %------------------------------------------------
 
 \begin{frame}
-	\frametitle{pro}
-	generalmente SIMP
+	\frametitle{Conclusioni}
+	generalmente implementazioni di SIMP
 	\begin{enumerate}
 		\item algoritmo robusto e generale
 		\item possibilit\`{a} di introdurre vincoli:
@@ -675,6 +703,7 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 			\item simmetria
 			\item estrudibilit\`{a}
 			\item stampabilit\`{a}
+			\item minima sezione
 		\end{itemize}
 		\item introduzione di load cases differenti
 		\item introduzione di vincoli di spostamento
@@ -683,9 +712,11 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 \end{frame}
 
 \begin{frame}
-	\frametitle{contro}
+	\frametitle{Criticit\`{a} nella T.O.}
 	\begin{enumerate}
 		\item in assenza di vincoli si possono ottenere soluzioni non coerenti
+		\item difficolt\`{a} nel passaggio dalla soluzione ad una geometria
+		\item non si effettua alcun dimensionamento
 		\item algoritmi proprietari
 	\end{enumerate}
 \end{frame}
@@ -693,6 +724,9 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 
 %------------------------------------------------
 
+\begin{frame}
+	\Huge{\centerline{Fine}}
+\end{frame}
 
 \begin{frame}[allowframebreaks]
 \frametitle{References}
@@ -704,9 +738,7 @@ Progetto di Strutture Aerospaziali \\ % Your institution for the title page
 
 %------------------------------------------------
 
-\begin{frame}
-\Huge{\centerline{Fine}}
-\end{frame}
+
 
 %----------------------------------------------------------------------------------------
 
